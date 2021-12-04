@@ -1,0 +1,909 @@
+
+CREATE TABLE account (
+    account_id INT PRIMARY KEY,
+    username VARCHAR(20),
+    password_acc VARBINARY(50),
+    joined_date DATE,
+    email VARCHAR(30),
+    costumer_id INT,
+    FOREIGN KEY(costumer_id) REFERENCES costumer(costumer_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE account;CREATE TABLE branch (
+    branch_id INT PRIMARY KEY,
+    address VARCHAR(20) UNIQUE,
+    phone INT(15) NOT NULL,
+    email VARCHAR(30),
+    postcode_id INT,
+    FOREIGN KEY(postcode_id) REFERENCES branch_postcode(postcode_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE TABLE branch;CREATE TABLE branch_postcode (
+    postcode_id INT PRIMARY KEY,
+    city VARCHAR(30),
+    city_id INT,
+    FOREIGN KEY(city_id) REFERENCES branch_city(city_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE TABLE branch_postcode;CREATE TABLE branch_city (
+    city_id INT PRIMARY KEY,
+    country VARCHAR(30)
+) DESCRIBE TABLE branch_city;---STU76627
+CREATE TABLE costumer (
+    costumer_id INT PRIMARY KEY,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    address VARCHAR(20),
+    postcode VARCHAR(6),
+    gender VARCHAR(20),
+    date_birth DATE
+) DESCRIBE TABLE costumer;---STU76627
+CREATE TABLE category (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(20) NOT NULL,
+    subcategory_name VARCHAR(20) NOT NULL,
+    supplier_id INT,
+    dvd_id INT,
+    FOREIGN KEY(supplier_id) REFERENCES supplier(supplier_id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY(dvd_id) REFERENCES dvd(dvd_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE TABLE category;CREATE TABLE dvd (
+    dvd_id INT PRIMARY KEY,
+    title VARCHAR(20) NOT NULL,
+    description VARCHAR(50) NOT NULL,
+    price INT
+) DESCRIBE TABLE dvd;CREATE TABLE employee (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    address VARCHAR(20),
+    postcode VARCHAR(6),
+    gender VARCHAR(10),
+    phone INT(15),
+    salary_id INT,
+    branch_id INT,
+    FOREIGN KEY(branch_id) REFERENCES branch(branch_id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY(salary_id) REFERENCES employee_salary(salary_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE TABLE employee;--STU76627
+CREATE TABLE employee_salary (
+    salary_id INT PRIMARY KEY,
+    position_works VARCHAR(20) NOT NULL,
+    salary INT
+) DESCRIBE TABLE employee_salary;CREATE TABLE invoice (
+    invoice_id INT PRIMARY KEY,
+    invoice_no INT(11) NOT NULL,
+    invoice_date DATE,
+    account_id INT,
+    payment_id INT,
+    order_id INT,
+    FOREIGN KEY(account_id) REFERENCES account(account_id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY(payment_id) REFERENCES payment(payment_id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY(order_id) REFERENCES order_costumer(order_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE invoice;CREATE TABLE order_costumer (
+    order_id INT PRIMARY KEY,
+    order_no INT NOT NULL,
+    order_quantity INT,
+    order_date DATE,
+    account_id INT,
+    FOREIGN KEY(account_id) REFERENCES account(account_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE order_costumer;CREATE TABLE payment (
+    payment_id INT PRIMARY KEY,
+    payment_method VARCHAR(20) NOT NULL,
+    amount INT,
+    payment_date DATE,
+    account_id INT,
+    FOREIGN KEY(account_id) REFERENCES account(account_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE payment;CREATE TABLE delivery (
+    delivery_id INT PRIMARY KEY,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    address VARCHAR(20),
+    postcode VARCHAR(6),
+    city VARCHAR(20),
+    phone INT(15),
+    country VARCHAR(15),
+    invoice_id INT,
+    FOREIGN KEY(invoice_id) REFERENCES invoice(invoice_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE delivery;CREATE TABLE subscription (
+    subscription_id INT PRIMARY KEY,
+    plan VARCHAR(15),
+    start_date DATE,
+    account_id INT,
+    FOREIGN KEY(account_id) REFERENCES account(account_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE subscription;--STU76627
+CREATE TABLE supplier (
+    supplier_id INT PRIMARY KEY,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    address VARCHAR(20),
+    postcode VARCHAR(6),
+    city VARCHAR(20),
+    phone INT(15),
+    country VARCHAR(15),
+    email VARCHAR(50),
+    items_id INT,
+    FOREIGN KEY(items_id) REFERENCES supplier_items(items_id) ON DELETE
+    SET
+        NULL
+) DESCRIBE supplier;CREATE TABLE supplier_items (
+    items_id INT PRIMARY KEY,
+    price INT,
+    quantity INT
+) DESCRIBE supplier_items;--ACCOUNT
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        1,
+        'Haily',
+        'Pope',
+        '2017-08-01',
+        'TG@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        2,
+        'Hassan',
+        'Paul',
+        '2009-08-01',
+        'hassn@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        3,
+        'Hamza',
+        'Percy',
+        '2006-08-01',
+        'AM@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        4,
+        'Hannah',
+        'Paul',
+        '2016-08-01',
+        'san@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        5,
+        'Halen',
+        'Peter',
+        '2014-08-01',
+        'TG@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        6,
+        'Holly',
+        'Penny',
+        '2013-08-01',
+        'hass@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        7,
+        'Hollie',
+        'Pat',
+        '2006-08-01',
+        'Ann@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        8,
+        'Hagen',
+        'Patrick',
+        '2010-08-01',
+        'hana@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        9,
+        'Halimo',
+        'Percy',
+        '2011-08-01',
+        'lis@hotmail.com'
+    );
+INSERT INTO
+    account(
+        account_id,
+        username,
+        password_acc,
+        joined_date,
+        email
+    )
+VALUES(
+        10,
+        'Hans',
+        'Perry',
+        '2001-08-01',
+        'fergie@hotmail.com'
+    );
+SELECT
+    *
+FROM
+    account;--COSTUMER
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(1, 'Haily', 'Pope', '2007-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(2, 'Hassan', 'Paul', '2009-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(3, 'Hamza', 'Percy', '2006-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(4, 'Hannah', 'Paul', '2005-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(5, 'Halen', 'Peter', '2004-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(6, 'Holly', 'Penny', '2003-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(7, 'Hollie', 'Pat', '2006-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(8, 'Hagen', 'Patrick', '2010-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(9, 'Halimo', 'Percy', '2011-08-01');
+INSERT INTO
+    costumer(costumer_id, first_name, last_name, date_birth)
+VALUES(10, 'Hans', 'Perry', '2001-08-01');
+SELECT
+    *
+FROM
+    costumer;--BRANCH
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        1,
+        '1 walker street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        2,
+        '12 wall street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        3,
+        '15 park street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        4,
+        '13 victoria street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        5,
+        '11 bull street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        6,
+        '100 moore street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        7,
+        '15 alam street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        8,
+        '19 rocky street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        9,
+        '20 close street',
+        'FG@hotmail.com',
+        0765487978
+    );
+INSERT INTO
+    branch(branch_id, address, email, phone)
+VALUES(
+        10,
+        '1 adams street',
+        'FG@hotmail.com',
+        0765487978
+    );
+SELECT
+    *
+FROM
+    branch;--STU76627
+    --BRANCH POSTCODE
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(1, 'LONDON');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(2, 'WESTON');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(3, 'BRIGHTON');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(4, 'ESSEX');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(5, 'BATH');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(6, 'BRMINGHAM');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(7, 'BRISTOL');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(8, 'NEWYORK');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(9, 'ABUJA');
+INSERT INTO
+    branch_postcode (postcode_id, city)
+VALUES(10, 'WUHAN');
+SELECT
+    *
+FROM
+    branch_postcode;--BRANCH CITY
+INSERT INTO
+    branch_city
+VALUES(1, 'CHINA');
+INSERT INTO
+    branch_city
+VALUES(2, 'INDIA');
+INSERT INTO
+    branch_city
+VALUES(3, 'ENGLAND');
+INSERT INTO
+    branch_city
+VALUES(4, 'AMERICA');
+INSERT INTO
+    branch_city
+VALUES(5, 'DENMARK');
+INSERT INTO
+    branch_city
+VALUES(6, 'SWEDEN');
+INSERT INTO
+    branch_city
+VALUES(7, 'NORWAY');
+INSERT INTO
+    branch_city
+VALUES(8, 'HOLLAND');
+INSERT INTO
+    branch_city
+VALUES(9, 'EGPT');
+INSERT INTO
+    branch_city
+VALUES(10, 'CAMERON');
+SELECT
+    *
+FROM
+    branch_city;--EMPLOYEE
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        1,
+        'KIM',
+        'UN',
+        '2 STATION ROAD',
+        'BS34RT',
+        'FEMALE',
+        076787878
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        2,
+        'Kelly',
+        'roll',
+        '2 FISHER ROAD',
+        'BS99RT',
+        'MALE',
+        07678765
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        3,
+        'cameron',
+        'STAN',
+        '78 BARTON ROAD',
+        'BS37RT',
+        'MALE',
+        078783456
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        4,
+        'SAM',
+        'HARFORD',
+        '99 STAN ROAD',
+        'BS30RT',
+        'FEMALE',
+        078723238
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        5,
+        'JIM',
+        'CURRY',
+        '98 FISHPOND ROAD',
+        'BS64RT',
+        'FEMALE',
+        07733878
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        6,
+        'CLOE',
+        'KAPOOR',
+        '2 LAMBROOK ROAD',
+        'BS94RT',
+        'MALE',
+        07976878
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        7,
+        'INDIANA',
+        'GOULDIN',
+        '9 WEST ROAD',
+        'BS54RT',
+        'FEMALE',
+        0787878
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        8,
+        'FELISHA',
+        'FORD',
+        '2 BRISTOL ROAD',
+        'BS64RT',
+        'MALE',
+        0754878
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        9,
+        'LOGAN',
+        'SMITH',
+        '32 HEATH ROAD',
+        'BS32RT',
+        'MALE',
+        07678978
+    );
+INSERT INTO
+    employee (
+        employee_id,
+        first_name,
+        last_name,
+        address,
+        postcode,
+        gender,
+        phone
+    )
+VALUES(
+        10,
+        'MAYA',
+        'NOEL',
+        '12 STATION ROAD',
+        'BS33RT',
+        'FEMALE',
+        0767878
+    );
+SELECT
+    *
+FROM
+    employee;--employee salary
+INSERT INTO
+    employee_salary
+VALUES(1, 'DRIVER', 29888);
+INSERT INTO
+    employee_salary
+VALUES(2, 'MANAGER', 34000);
+INSERT INTO
+    employee_salary
+VALUES(3, 'COSTUMER SERVICE', 89666);
+INSERT INTO
+    employee_salary
+VALUES(4, 'CEO', 97660);
+INSERT INTO
+    employee_salary
+VALUES(5, 'DIRECTOR', 98689);
+INSERT INTO
+    employee_salary
+VALUES(6, 'CONSULTANT', 28900);
+INSERT INTO
+    employee_salary
+VALUES(7, 'DRIVER', 69000);
+INSERT INTO
+    employee_salary
+VALUES(8, 'CHIEF MARKETING', 98708);
+INSERT INTO
+    employee_salary
+VALUES(9, 'COSTUMER SERVICE', 87000);
+INSERT INTO
+    employee_salary
+VALUES(10, 'SENIOR MANAGER', 89007);
+SELECT
+    *
+FROM
+    employee_salary;--DVDs
+INSERT INTO
+    dvd
+VALUES(1, 'APE', ' DOCUMENTRY ABOUT THE JUNGLE', 25);
+INSERT INTO
+    dvd
+VALUES(2, 'NATURE', ' DOCUMENTRY ABOUT THE NATURE', 24);
+INSERT INTO
+    dvd
+VALUES(
+        3,
+        'ANCIENT LIFE',
+        ' DOCUMENTRY ABOUT THE HISTORY',
+        24
+    );
+INSERT INTO
+    dvd
+VALUES(
+        4,
+        'MEDICINE',
+        ' DOCUMENTRY ABOUT THE MEDICINE',
+        24
+    );
+INSERT INTO
+    dvd
+VALUES(5, 'HERBAL', ' DOCUMENTRY ABOUT HERBAL', 27);
+INSERT INTO
+    dvd
+VALUES(6, 'LIFE', ' DOCUMENTRY ABOUT LIFE', 24);
+INSERT INTO
+    dvd
+VALUES(
+        7,
+        'HUMAN NATURE',
+        ' DOCUMENTRY ABOUT HUMAN NATURE',
+        25
+    );
+INSERT INTO
+    dvd
+VALUES(
+        8,
+        'REFUGEES',
+        ' DOCUMENTRY ABOUT THE REFUGEES',
+        27
+    );
+INSERT INTO
+    dvd
+VALUES(9, 'ALONE', ' DOCUMENTRY ABOUT BEING ALONE', 28);
+INSERT INTO
+    dvd
+VALUES(10, 'PARENTS', ' DOCUMENTRY ABOUT PARENTING', 66);
+SELECT
+    *
+FROM
+    dvd;
+INSERT INTO
+    order_costumer
+VALUES(1, 56, 5, '2008-09-08', 2);
+INSERT INTO
+    order_costumer
+VALUES(2, 80, 1, '2008-09-07', 1);
+INSERT INTO
+    order_costumer
+VALUES(3, 70, 2, '2008-09-08', 3);
+INSERT INTO
+    order_costumer
+VALUES(4, 54, 9, '2008-09-06', 4);
+INSERT INTO
+    order_costumer
+VALUES(5, 57, 4, '2008-09-04', 5);
+INSERT INTO
+    order_costumer
+VALUES(6, 53, 4, '2008-09-03', 6);
+INSERT INTO
+    order_costumer
+VALUES(7, 52, 2, '2008-09-02', 7);
+INSERT INTO
+    order_costumer
+VALUES(8, 88, 10, '2008-09-01', 8);
+INSERT INTO
+    order_costumer
+VALUES(9, 90, 20, '2008-09-16', 9);
+INSERT INTO
+    order_costumer
+VALUES(10, 66, 15, '2008-09-18', 10);
+SELECT
+    *
+FROM
+    order_costumer;
+INSERT INTO
+    payment
+VALUES(1, 'paypal', 15, '2018-09-18', 1);
+INSERT INTO
+    payment
+VALUES(2, 'VISA', 18, '2019-09-18', 2);
+INSERT INTO
+    payment
+VALUES(3, 'APPLE PAY', 14, '2018-07-18', 3);
+INSERT INTO
+    payment
+VALUES(4, 'PAYPAL', 23, '2018-09-09', 4);
+INSERT INTO
+    payment
+VALUES(5, 'CREDIT CARD', 60, '2008-09-18', 5);
+INSERT INTO
+    payment
+VALUES(6, 'MASTER CARD', 20, '2018-02-18', 6);
+INSERT INTO
+    payment
+VALUES(7, 'PAYPAL', 10, '2018-10-18', 7);
+INSERT INTO
+    payment
+VALUES(8, 'VISA', 17, '2018-09-18', 8);
+INSERT INTO
+    payment
+VALUES(9, 'APPLE PAY', 32, '2020-09-18', 9);
+INSERT INTO
+    payment
+VALUES(10, 'APPLE PAY', 90, '2018-11-18', 10);
+SELECT
+    *
+FROM
+    payment;---STU76627
+    --find dvds ordered by price
+SELECT
+    *
+FROM
+    dvd
+ORDER BY
+    price;--FIND DIFFRENT dvds
+SELECT
+    DISTINCT dvd_id
+FROM
+    dvd;--FIND EMPLOYEE
+SELECT
+    *
+FROM
+    employee
+WHERE
+    employee_id = 1
+    AND gender = 'MALE' --STU76627
+    --FIND CUSTOMORS
+SELECT
+    *
+FROM
+    costumer
+WHERE
+    first_name = 'HALIMO'
+SELECT
+    *
+FROM
+    employee_salary
+ORDER BY
+    salary DESC --FINDING AVG EMPLOYEE SALARY
+SELECT
+    AVG(salary)
+FROM
+    employee_salary;-- total order of each client
+SELECT
+    SUM(order_quantity),
+    order_id
+FROM
+    order_costumer
+GROUP BY
+    order_id -- how many drivers are working for the company
+SELECT
+    COUNT(position_works),
+    position_works
+FROM
+    employee_salary
+GROUP BY
+    position_works
+SELECT
+    employee_salary.salary_id,
+    employee.first_name
+FROM
+    employee
+    JOIN employee_salary ON employee_salary.salary_id = employee_id;
+SELECT
+    MIN(order_quantity)
+FROM
+    order_costumer --Maximum payment taken by APPLE PAY
+SELECT
+    MAX(amount)
+FROM
+    payment
+WHERE
+    payment_method = 'APPLE PAY'
